@@ -9,7 +9,9 @@ public interface ProductService {
 
      ProductDto createProduct(CreateProductRequest request);
 
-     ProductDto findProductById(Long id);
+     ProductDto getProductById(Long id);
 
      List<ProductDto> findAllProductByIds(List<Long> productIds);
+
+    List<ProductDto> getAllProducts();
 }

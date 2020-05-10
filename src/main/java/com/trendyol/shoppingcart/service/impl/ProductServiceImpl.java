@@ -1,5 +1,6 @@
 package com.trendyol.shoppingcart.service.impl;
 
+import com.trendyol.shoppingcart.error.UserException;
 import com.trendyol.shoppingcart.model.dto.CategoryDto;
 import com.trendyol.shoppingcart.model.dto.ProductDto;
 import com.trendyol.shoppingcart.model.entity.Product;
@@ -12,7 +13,7 @@ import com.trendyol.shoppingcart.service.mapper.CategoryEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +36,9 @@ public class ProductServiceImpl implements ProductService {
         this.categoryEntityMapper = categoryEntityMapper;
     }
 
-
     @Override
     @Transactional
-    public ProductDto createProduct(CreateProductRequest request) {
+    public ProductDto createProduct(CreateProductRequest request)  {
 
         Product product = new Product();
         product.setTitle(request.getTitle());
@@ -51,12 +51,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findProductById(Long id) {
+    public ProductDto getProductById(Long id) {
 
         Optional<Product> optionalProduct = productRepository.findById(id);
 
         if (!optionalProduct.isPresent()){
-            throw new EntityNotFoundException();
+            throw new UserException("entity not found");
         }
 
         return productConverter.convert(optionalProduct.get());
@@ -68,6 +68,18 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAllById(productIds);
 
         return productConverter.convert(products);
+    }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+
+        List<Product> findAll = productRepository.findAll();
+
+        if (findAll.isEmpty()){
+            throw new UserException("no products in entity");
+        }
+
+        return productConverter.convert(findAll);
     }
 
 

@@ -20,7 +20,7 @@ public class DeliveryCostCalculatorServiceImpl implements DeliveryCostCalculator
     @Override
     public Double calculateFor(CartDto cart) {
 
-        //ı try to add some where else but
+
         Double fixedCost = 2.99;
         Double costPerDelivery = 5.0;
         Double costPerProduct = 2.0;

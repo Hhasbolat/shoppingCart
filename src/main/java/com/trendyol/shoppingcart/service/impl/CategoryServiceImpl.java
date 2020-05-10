@@ -1,5 +1,6 @@
 package com.trendyol.shoppingcart.service.impl;
 
+import com.trendyol.shoppingcart.error.UserException;
 import com.trendyol.shoppingcart.model.dto.CategoryDto;
 import com.trendyol.shoppingcart.model.entity.Category;
 import com.trendyol.shoppingcart.repository.CategoryRepository;
@@ -7,7 +8,6 @@ import com.trendyol.shoppingcart.service.CategoryService;
 import com.trendyol.shoppingcart.service.converter.CategoryDtoConverter;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         if (!optionalCategory.isPresent()){
-            throw new EntityNotFoundException();
+            throw new UserException("no such category");
         }
 
         return categoryDtoConverter.convert(optionalCategory.get());

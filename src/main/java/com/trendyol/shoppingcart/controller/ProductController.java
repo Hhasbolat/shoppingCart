@@ -6,6 +6,8 @@ import com.trendyol.shoppingcart.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -18,13 +20,16 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id){
-        return ResponseEntity.ok(productService.findProductById(id));
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping("getAll")
+    public ResponseEntity<List<ProductDto>> getAllProducts(){
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @PostMapping("/create")
     public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request){
         return ResponseEntity.ok(productService.createProduct(request));
     }
-
-
 }

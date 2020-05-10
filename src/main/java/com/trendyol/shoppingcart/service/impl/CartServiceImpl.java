@@ -1,8 +1,8 @@
 package com.trendyol.shoppingcart.service.impl;
 
 
+import com.trendyol.shoppingcart.error.UserException;
 import com.trendyol.shoppingcart.model.dto.*;
-import com.trendyol.shoppingcart.model.dto.ProductCartItem;
 import com.trendyol.shoppingcart.model.entity.Cart;
 import com.trendyol.shoppingcart.model.entity.Coupon;
 import com.trendyol.shoppingcart.model.enums.DiscountType;
@@ -21,7 +21,6 @@ import com.trendyol.shoppingcart.service.mapper.ProductEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -83,9 +82,7 @@ public class CartServiceImpl implements CartService {
             cartDto.setCampaignDiscount(discountByRate);
         }
 
-        BigDecimal couponDiscount = calculateDiscountCoupon(cartDto);
-        cartDto.setCouponDiscount(couponDiscount);
-        cartDto.setTotalAmountAfterDiscounts(totalPrice.subtract(cartDto.getCampaignDiscount()).subtract(cartDto.getCouponDiscount()));
+        cartDto.setTotalAmountAfterDiscounts(totalPrice.subtract(cartDto.getCampaignDiscount()));
         cartDto.setDeliveryCost(BigDecimal.valueOf(deliveryCostCalculatorService.calculateFor(cartDto)));
 
         Cart cart = cartEntityMapper.map(cartDto);
@@ -94,37 +91,6 @@ public class CartServiceImpl implements CartService {
         return cartDto;
     }
 
-    private BigDecimal calculateDiscountCoupon(CartDto cartDto) {
-
-        {
-            BigDecimal price = cartDto.getTotalPrice().subtract(cartDto.getCampaignDiscount());
-            List<Coupon> coupons = couponRepository.findByMinimumPurchaseAmountIsLessThanEqual(price);
-            List<CouponDto> couponsDtos = couponConverter.convert(coupons);
-            BigDecimal maxDiscount = BigDecimal.ZERO;
-
-            for (CouponDto coupon : couponsDtos)
-            {
-                BigDecimal discount = calculateCouponByRate(cartDto, coupon);
-                if (discount.compareTo(maxDiscount) == 1)
-                {
-                    maxDiscount = discount;
-                }
-            }
-
-            return maxDiscount;
-        }
-    }
-
-    private BigDecimal calculateCouponByRate(CartDto cartDto, CouponDto couponDto) {
-
-        BigDecimal price = cartDto.getTotalPrice().subtract(cartDto.getCampaignDiscount());
-
-        if (price.compareTo(couponDto.getMinimumPurchaseAmount()) == 10) {
-            return price.multiply(couponDto.getDiscount().divide(couponDto.getMinimumPurchaseAmount()));
-        }
-
-        return BigDecimal.ZERO;
-    }
 
     @Override
     public CartDto getCart(Long id) {
@@ -132,7 +98,7 @@ public class CartServiceImpl implements CartService {
         Optional<Cart> optionalCart = cartRepository.findById(id);
 
         if (!optionalCart.isPresent()){
-            throw new EntityNotFoundException();
+            throw new UserException("entity not found");
         }
 
         return cartDtoConverter.convert(optionalCart.get());
@@ -140,7 +106,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Double calculateDeliveryCost(CartDto cartDto) {
-
         return deliveryCostCalculatorService.calculateFor(cartDto);
     }
 
@@ -160,7 +125,7 @@ public class CartServiceImpl implements CartService {
         List<CartItemDto> cartItemDtos = new ArrayList<>();
 
         for (ProductCartItem item : addItemsRequest.getItems()) {
-            ProductDto productDto = productService.findProductById(item.getProductId());
+            ProductDto productDto = productService.getProductById(item.getProductId());
             CartItemDto cartItemDto = new CartItemDto();
             cartItemDto.setProductDto(productDto);
             cartItemDto.setQuantity(item.getQuantity());

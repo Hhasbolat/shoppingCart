@@ -1,7 +1,9 @@
 package com.trendyol.shoppingcart.service.impl;
 
+import com.trendyol.shoppingcart.error.UserException;
 import com.trendyol.shoppingcart.model.dto.CampaignDto;
 import com.trendyol.shoppingcart.model.entity.Campaign;
+import com.trendyol.shoppingcart.model.entity.Coupon;
 import com.trendyol.shoppingcart.model.enums.DiscountType;
 import com.trendyol.shoppingcart.repository.CampaignRepository;
 import com.trendyol.shoppingcart.service.CampaignService;
@@ -11,7 +13,6 @@ import com.trendyol.shoppingcart.service.mapper.CampaignEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,16 +22,13 @@ public class CampaignServiceImpl implements CampaignService {
     private final CampaignRepository campaignRepository;
     private final CampaignEntityMapper campaignEntityMapper;
     private final CampaignConverter campaignConverter;
-    private final CategoryService categoryService;
 
     public CampaignServiceImpl(CampaignRepository campaignRepository,
                                CampaignEntityMapper campaignEntityMapper,
-                               CampaignConverter campaignConverter,
-                               CategoryService categoryService) {
+                               CampaignConverter campaignConverter) {
         this.campaignRepository = campaignRepository;
         this.campaignEntityMapper = campaignEntityMapper;
         this.campaignConverter = campaignConverter;
-        this.categoryService = categoryService;
     }
 
     @Override
@@ -49,7 +47,7 @@ public class CampaignServiceImpl implements CampaignService {
         Optional<Campaign> optionalCampaign = campaignRepository.findById(id);
 
         if (!optionalCampaign.isPresent()) {
-            throw new EntityNotFoundException();
+            throw new UserException("entity not found");
         }
 
         return campaignConverter.convert(optionalCampaign.get());
