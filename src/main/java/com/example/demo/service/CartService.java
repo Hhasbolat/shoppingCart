@@ -8,5 +8,5 @@ public interface CartService {
 
     CartDto addProducts(Long cartId, AddItemsRequest addItemsRequest);
 
-   // Double getDeliveryCost(CartDto cartDto);
+    Double getDeliveryCost(CartDto cartDto);
 }

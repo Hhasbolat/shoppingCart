@@ -9,6 +9,7 @@ import com.example.demo.repository.CartItemRepository;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.service.CampaignService;
 import com.example.demo.service.CartService;
+import com.example.demo.service.DeliveryCostCalculatorService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.converter.CartDtoConverter;
 import com.example.demo.service.mapper.CartEntityMapper;
@@ -30,11 +31,12 @@ public class CartServiceImpl implements CartService {
     private final CampaignService campaignService;
     private final CartItemRepository cartItemRepository;
     private final CartEntityMapper cartEntityMapper;
-    //private final DeliveryCostCalculatorService deliveryCostCalculatorService;
+    private final DeliveryCostCalculatorService deliveryCostCalculatorService;
 
     public CartServiceImpl(CartRepository cartRepository, ProductService productService,
                            ProductEntityMapper productEntityMapper, CartDtoConverter cartDtoConverter,
-                           CampaignService campaignService, CartItemRepository cartItemRepository, CartEntityMapper cartEntityMapper) {
+                           CampaignService campaignService, CartItemRepository cartItemRepository, CartEntityMapper cartEntityMapper,
+                           DeliveryCostCalculatorService deliveryCostCalculatorService) {
         this.cartRepository = cartRepository;
         this.productService = productService;
         this.productEntityMapper = productEntityMapper;
@@ -42,6 +44,7 @@ public class CartServiceImpl implements CartService {
         this.campaignService = campaignService;
         this.cartItemRepository = cartItemRepository;
         this.cartEntityMapper = cartEntityMapper;
+        this.deliveryCostCalculatorService = deliveryCostCalculatorService;
     }
 
 
@@ -62,15 +65,16 @@ public class CartServiceImpl implements CartService {
             cartDto.setCampaignDiscount(discountByRate);
         }
         cartDto.setTotalAmountAfterDiscounts(totalPrice.subtract(cartDto.getCampaignDiscount()));
+        cartDto.setDeliveryCost(BigDecimal.valueOf(deliveryCostCalculatorService.calculateFor(cartDto)));
         Cart cart = cartEntityMapper.map(cartDto);
         cartRepository.save(cart);
         return cartDto;
     }
 
-   /* @Override
+    @Override
     public Double getDeliveryCost(CartDto cartDto) {
         return deliveryCostCalculatorService.calculateFor(cartDto);
-    }*/
+    }
 
     private BigDecimal calculateTotalPrice(List<CartItemDto> cartItems) {
         BigDecimal totalPrice = BigDecimal.ZERO;

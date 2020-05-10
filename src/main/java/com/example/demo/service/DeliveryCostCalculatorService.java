@@ -6,6 +6,6 @@ import java.math.BigDecimal;
 
 public interface DeliveryCostCalculatorService {
 
- //   Double calculateFor(CartDto cart);
+    Double calculateFor(CartDto cart);
 
 }

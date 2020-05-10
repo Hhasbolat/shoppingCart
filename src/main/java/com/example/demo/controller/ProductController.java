@@ -15,14 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     private final ProductService productService;
-    private final CampaignService campaignService;
-    private final CouponService couponService;
 
-    public ProductController(ProductService productService, CampaignService campaignService,
-                             CouponService couponService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.campaignService = campaignService;
-        this.couponService = couponService;
     }
 
     @GetMapping("/{id}")
@@ -35,13 +30,5 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(request));
     }
 
-    @PostMapping("/campaign")
-    public ResponseEntity<CampaignDto> createCampaign(@RequestBody CampaignDto request){
-        return ResponseEntity.ok(campaignService.createCampaign(request));
-    }
 
-    @PostMapping("/coupon")
-    public ResponseEntity<CouponDto> createCampaign(@RequestBody CouponDto request){
-        return ResponseEntity.ok(couponService.createCoupon(request));
-    }
 }
