@@ -8,12 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
 import java.util.List;
 
-import static com.trendyol.shoppingcart.builder.ProductMocDataBuilder.generateProduct;
-import static com.trendyol.shoppingcart.builder.ProductMocDataBuilder.generateProductRequest;
+import static com.trendyol.shoppingcart.builder.ProductMockDataBuilder.generateProductDto;
+import static com.trendyol.shoppingcart.builder.ProductMockDataBuilder.generateProductRequest;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,8 +37,9 @@ class ProductControllerTest extends BaseControllerTest {
     void setUp() {
         productRequest = generateProductRequest();
 
-        product = generateProduct();
+        product = generateProductDto();
 
+        productResponseList = Collections.singletonList(generateProductDto());
     }
 
     @Test
@@ -88,6 +89,5 @@ class ProductControllerTest extends BaseControllerTest {
         } catch (Exception e) {
             fail(e);
         }
-
     }
 }
