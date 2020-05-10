@@ -11,9 +11,11 @@ public class CategoryDtoConverter implements DtoConverter<CategoryDto, Category>
 
     @Override
     public CategoryDto convert(Category source) {
+
        if (source == null){
            return null;
        }
+
        CategoryDto categoryDto = new CategoryDto();
        categoryDto.setId(source.getId());
        categoryDto.setTitle(source.getTitle());
@@ -23,6 +25,7 @@ public class CategoryDtoConverter implements DtoConverter<CategoryDto, Category>
 
     @Override
     public List<CategoryDto> convert(List<Category> source) {
+
         return source
                 .stream()
                 .map(this::convert)

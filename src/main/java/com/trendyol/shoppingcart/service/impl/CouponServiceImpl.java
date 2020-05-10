@@ -18,7 +18,8 @@ public class CouponServiceImpl implements CouponService {
     private final CouponEntityManager couponEntityMapper;
     private final CouponConverter couponConverter;
 
-    public CouponServiceImpl(CouponRepository couponRepository, CouponEntityManager couponEntityMapper,
+    public CouponServiceImpl(CouponRepository couponRepository,
+                             CouponEntityManager couponEntityMapper,
                              CouponConverter couponConverter) {
         this.couponRepository = couponRepository;
         this.couponEntityMapper = couponEntityMapper;
@@ -28,16 +29,21 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public CouponDto createCoupon(CouponDto dto) {
+
         Coupon coupon = couponRepository.save(couponEntityMapper.map(dto));
+
         return couponConverter.convert(coupon);
     }
 
     @Override
     public CouponDto findById(Long id) {
+
         Optional<Coupon> optionalCoupon = couponRepository.findById(id);
+
         if (!optionalCoupon.isPresent()) {
             throw new EntityNotFoundException();
         }
+
         return couponConverter.convert(optionalCoupon.get());
     }
 }

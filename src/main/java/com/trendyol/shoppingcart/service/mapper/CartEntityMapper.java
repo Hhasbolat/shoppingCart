@@ -16,6 +16,7 @@ public class CartEntityMapper implements EntityMapper<Cart, CartDto> {
 
     @Override
     public Cart map(CartDto source) {
+
         Cart cart = new Cart();
         cart.setId(source.getId());
         cart.setItems(convert(source.getItems()));
@@ -24,11 +25,13 @@ public class CartEntityMapper implements EntityMapper<Cart, CartDto> {
         cart.setDeliveryCost(source.getDeliveryCost());
         cart.setTotalAmountAfterDiscounts(source.getTotalAmountAfterDiscounts());
         cart.setTotalPrice(source.getTotalPrice());
+
         return cart;
     }
 
     @Override
     public List<Cart> map(List<CartDto> source) {
+
         return source
                 .stream()
                 .map(this::map)
@@ -36,6 +39,7 @@ public class CartEntityMapper implements EntityMapper<Cart, CartDto> {
     }
 
     private List<CartItem> convert(List<CartItemDto> cartItemDtos){
+
         List<CartItem> cartItems=new ArrayList<>();
         for (CartItemDto cartItemDto : cartItemDtos) {
             CartItem cartItem = new CartItem();
@@ -43,6 +47,7 @@ public class CartEntityMapper implements EntityMapper<Cart, CartDto> {
             cartItem.setQuantity(cartItem.getQuantity());
             cartItems.add(cartItem);
         }
+
         return cartItems;
     }
 }

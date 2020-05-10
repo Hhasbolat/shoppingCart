@@ -12,6 +12,7 @@ public class CouponConverter implements DtoConverter<CouponDto, Coupon> {
 
     @Override
     public CouponDto convert(Coupon source) {
+
         CouponDto couponDto = new CouponDto();
         couponDto.setDiscount(source.getDiscount());
         couponDto.setDiscountType(source.getDiscountType());
@@ -23,6 +24,7 @@ public class CouponConverter implements DtoConverter<CouponDto, Coupon> {
 
     @Override
     public List<CouponDto> convert(List<Coupon> source) {
+
         return source.stream()
                 .map(this::convert)
                 .collect(Collectors.toList());

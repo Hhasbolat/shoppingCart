@@ -1,6 +1,6 @@
 package com.trendyol.shoppingcart.service.impl;
 
-import com.trendyol.shoppingcart.model.dummy.ProductCartItem;
+import com.trendyol.shoppingcart.model.dto.ProductCartItem;
 import com.trendyol.shoppingcart.model.entity.Cart;
 import com.trendyol.shoppingcart.model.entity.Category;
 import com.trendyol.shoppingcart.model.entity.Product;

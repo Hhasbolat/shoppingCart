@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class ProductEntityMapper implements EntityMapper<Product, ProductDto> {
+
     @Override
     public Product map(ProductDto source) {
+
         Product product = new Product();
         product.setId(source.getId());
         product.setPrice(source.getPrice());
@@ -19,6 +21,7 @@ public class ProductEntityMapper implements EntityMapper<Product, ProductDto> {
 
     @Override
     public List<Product> map(List<ProductDto> source) {
+
         return source.stream()
                 .map(this::map)
                 .collect(Collectors.toList());

@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class CartItem extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")

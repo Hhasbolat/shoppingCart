@@ -14,16 +14,6 @@ public class CouponDto extends BaseDto {
 
     private DiscountType discountType;
 
-    public CouponDto() {
-    }
-
-    public CouponDto(Long id, BigDecimal minimumPurchaseAmount, BigDecimal discount, DiscountType discountType) {
-        this.id = id;
-        this.minimumPurchaseAmount = minimumPurchaseAmount;
-        this.discount = discount;
-        this.discountType = discountType;
-    }
-
     public Long getId() {
         return id;
     }

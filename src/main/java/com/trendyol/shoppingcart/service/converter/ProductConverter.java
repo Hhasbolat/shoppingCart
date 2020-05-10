@@ -22,9 +22,11 @@ public class ProductConverter implements DtoConverter<ProductDto,Product> {
 
     @Override
     public ProductDto convert(Product source) {
+
         if (source == null){
             return null;
         }
+
         CategoryDto categoryDto = categoryService.findCategoryById(source.getCategory().getId());
 
         ProductDto productDto=new ProductDto();
@@ -32,11 +34,13 @@ public class ProductConverter implements DtoConverter<ProductDto,Product> {
         productDto.setTitle(source.getTitle());
         productDto.setPrice(source.getPrice());
         productDto.setCategoryDto(categoryDto);
+
         return productDto;
     }
 
     @Override
     public List<ProductDto> convert(List<Product> source) {
+
         return source.stream()
                 .map(this::convert)
                 .collect(Collectors.toList());

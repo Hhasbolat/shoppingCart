@@ -5,6 +5,7 @@ import com.trendyol.shoppingcart.model.enums.DiscountType;
 import java.math.BigDecimal;
 
 public class CampaignDto extends BaseDto {
+
     private Long id;
 
     private CategoryDto category;
@@ -17,15 +18,6 @@ public class CampaignDto extends BaseDto {
 
 
     public CampaignDto() {
-    }
-
-    public CampaignDto(Long id, CategoryDto category, Integer minimumProductCount,
-                       BigDecimal discount, DiscountType discountType) {
-        this.id = id;
-        this.category = category;
-        this.minimumProductCount = minimumProductCount;
-        this.discount = discount;
-        this.discountType = discountType;
     }
 
     public Long getId() {

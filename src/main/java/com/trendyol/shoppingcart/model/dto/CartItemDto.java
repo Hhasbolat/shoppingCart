@@ -8,15 +8,6 @@ public class CartItemDto extends BaseDto {
 
     private Integer quantity;
 
-    public CartItemDto() {
-    }
-
-    public CartItemDto(Long id, ProductDto productDto, Integer quantity) {
-        this.id = id;
-        this.productDto = productDto;
-        this.quantity = quantity;
-    }
-
     public Long getId() {
         return id;
     }

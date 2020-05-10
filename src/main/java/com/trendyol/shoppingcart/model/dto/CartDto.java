@@ -21,22 +21,6 @@ public class CartDto extends BaseDto{
 
     private List<CartItemDto> items;
 
-    public CartDto() {
-    }
-
-    public CartDto(Long id, BigDecimal totalPrice, BigDecimal couponDiscount, BigDecimal campaignDiscount,
-                   BigDecimal totalAmountAfterDiscounts, BigDecimal deliveryCost,
-                   BigDecimal totalAmount, List<CartItemDto> items) {
-        this.id = id;
-        this.totalPrice = totalPrice;
-        this.couponDiscount = couponDiscount;
-        this.campaignDiscount = campaignDiscount;
-        this.totalAmountAfterDiscounts = totalAmountAfterDiscounts;
-        this.deliveryCost = deliveryCost;
-        this.totalAmount = totalAmount;
-        this.items = items;
-    }
-
     public Long getId() {
         return id;
     }

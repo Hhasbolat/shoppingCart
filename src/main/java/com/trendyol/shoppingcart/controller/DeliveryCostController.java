@@ -14,7 +14,6 @@ public class DeliveryCostController {
 
     private final CartService cartService;
 
-
     public DeliveryCostController(CartService cartService) {
         this.cartService = cartService;
     }

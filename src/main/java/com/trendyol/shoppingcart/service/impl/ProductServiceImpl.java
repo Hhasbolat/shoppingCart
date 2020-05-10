@@ -25,7 +25,10 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryEntityMapper categoryEntityMapper;
 
 
-    public ProductServiceImpl(CategoryService categoryService, ProductRepository productRepository, ProductConverter productConverter, CategoryEntityMapper categoryEntityMapper) {
+    public ProductServiceImpl(CategoryService categoryService,
+                              ProductRepository productRepository,
+                              ProductConverter productConverter,
+                              CategoryEntityMapper categoryEntityMapper) {
         this.categoryService = categoryService;
         this.productRepository = productRepository;
         this.productConverter = productConverter;
@@ -36,26 +39,34 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto createProduct(CreateProductRequest request) {
+
         Product product = new Product();
         product.setTitle(request.getTitle());
         product.setPrice(request.getPrice());
+
         CategoryDto categoryDto = categoryService.findCategoryById(request.getCategoryId());
         product.setCategory(categoryEntityMapper.map(categoryDto));
+
         return productConverter.convert(productRepository.save(product));
     }
 
     @Override
     public ProductDto findProductById(Long id) {
+
         Optional<Product> optionalProduct = productRepository.findById(id);
+
         if (!optionalProduct.isPresent()){
             throw new EntityNotFoundException();
         }
+
         return productConverter.convert(optionalProduct.get());
     }
 
     @Override
     public List<ProductDto> findAllProductByIds(List<Long> productIds) {
+
         List<Product> products = productRepository.findAllById(productIds);
+
         return productConverter.convert(products);
     }
 

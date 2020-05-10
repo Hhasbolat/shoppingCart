@@ -1,7 +1,9 @@
-package com.trendyol.shoppingcart.model.dummy;
+package com.trendyol.shoppingcart.model.dto;
 
 public class ProductCartItem {
+
     private Long productId;
+
     private Integer quantity;
 
     public Long getProductId() {

@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
+
     List<Coupon> findByMinimumPurchaseAmountIsLessThanEqual(BigDecimal amount);
 }

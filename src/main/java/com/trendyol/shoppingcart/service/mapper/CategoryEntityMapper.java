@@ -12,14 +12,17 @@ public class CategoryEntityMapper implements EntityMapper<Category, CategoryDto>
 
     @Override
     public Category map(CategoryDto source) {
+
         Category category = new Category();
         category.setTitle(source.getTitle());
         category.setId(source.getId());
+
         return category;
     }
 
     @Override
     public List<Category> map(List<CategoryDto> source) {
+
         return source.stream()
                 .map(this::map)
                 .collect(Collectors.toList());

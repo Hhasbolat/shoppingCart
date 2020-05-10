@@ -14,14 +14,6 @@ public class Category extends BaseEntity {
     @Column(name = "TITLE")
     private String title;
 
-    public Category() {
-    }
-
-    public Category(String title) {
-        super();
-    }
-
-
     public Long getId() {
         return id;
     }

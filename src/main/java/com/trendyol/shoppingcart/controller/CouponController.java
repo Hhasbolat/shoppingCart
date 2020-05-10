@@ -3,12 +3,9 @@ package com.trendyol.shoppingcart.controller;
 import com.trendyol.shoppingcart.model.dto.CouponDto;
 import com.trendyol.shoppingcart.service.CouponService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/coupon")
 public class CouponController {
 
@@ -19,6 +16,7 @@ public class CouponController {
     }
 
     @PostMapping("/create")
+    @ResponseBody
     public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponDto request){
         return ResponseEntity.ok(couponService.createCoupon(request));
     }

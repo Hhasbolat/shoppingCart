@@ -12,12 +12,14 @@ public class CouponEntityManager implements EntityMapper<Coupon, CouponDto> {
 
     @Override
     public Coupon map(CouponDto source) {
+
         Coupon coupon = new Coupon();
         coupon.setId(source.getId());
         coupon.setDiscount(source.getDiscount());
         coupon.setDiscountType(source.getDiscountType());
         coupon.setMinimumPurchaseAmount(source.getMinimumPurchaseAmount());
-        return null;
+
+        return coupon;
     }
 
     @Override

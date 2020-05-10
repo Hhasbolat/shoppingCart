@@ -6,8 +6,10 @@ import com.trendyol.shoppingcart.model.request.CreateProductRequest;
 import java.util.List;
 
 public interface ProductService {
-     ProductDto createProduct(CreateProductRequest request);
-     ProductDto findProductById(Long id);
-     List<ProductDto> findAllProductByIds(List<Long> productIds);
 
+     ProductDto createProduct(CreateProductRequest request);
+
+     ProductDto findProductById(Long id);
+
+     List<ProductDto> findAllProductByIds(List<Long> productIds);
 }

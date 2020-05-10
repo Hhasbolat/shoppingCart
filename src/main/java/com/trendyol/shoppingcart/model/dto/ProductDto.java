@@ -5,19 +5,12 @@ import java.math.BigDecimal;
 public class ProductDto extends BaseDto{
 
     private Long id;
+
     private String title;
+
     private BigDecimal price;
+
     private CategoryDto categoryDto;
-
-    public ProductDto() {
-    }
-
-    public ProductDto(Long id, String title, BigDecimal price, CategoryDto categoryDto) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-        this.categoryDto = categoryDto;
-    }
 
     public Long getId() {
         return id;

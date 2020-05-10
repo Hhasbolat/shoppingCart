@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 public class Coupon extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
@@ -21,13 +22,6 @@ public class Coupon extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "DISCOUNT_TYPE")
     private DiscountType discountType;
-
-    public Coupon() {
-    }
-
-    public Coupon(BigDecimal minimumPurchaseAmount, BigDecimal discount, DiscountType discountType) {
-        super();
-    }
 
     public Long getId() {
         return id;

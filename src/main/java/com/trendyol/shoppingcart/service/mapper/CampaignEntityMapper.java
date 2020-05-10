@@ -17,17 +17,20 @@ public class CampaignEntityMapper implements EntityMapper<Campaign, CampaignDto>
 
     @Override
     public Campaign map(CampaignDto source) {
+
         Campaign campaign = new Campaign();
         campaign.setId(source.getId());
         campaign.setCategory(categoryEntityMapper.map(source.getCategory()));
         campaign.setDiscount(source.getDiscount());
         campaign.setDiscountType(source.getDiscountType());
         campaign.setMinimumProductCount(source.getMinimumProductCount());
+
         return campaign;
     }
 
     @Override
     public List<Campaign> map(List<CampaignDto> source) {
+
         return source.stream()
                 .map(this::map)
                 .collect(Collectors.toList());

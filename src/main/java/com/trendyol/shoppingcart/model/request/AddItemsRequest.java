@@ -1,6 +1,6 @@
 package com.trendyol.shoppingcart.model.request;
 
-import com.trendyol.shoppingcart.model.dummy.ProductCartItem;
+import com.trendyol.shoppingcart.model.dto.ProductCartItem;
 
 import java.util.List;
 

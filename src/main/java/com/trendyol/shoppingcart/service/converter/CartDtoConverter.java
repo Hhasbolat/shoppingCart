@@ -14,8 +14,10 @@ public class CartDtoConverter implements DtoConverter<CartDto, Cart> {
     public CartDtoConverter(CartItemConverter cartItemConverter) {
         this.cartItemConverter = cartItemConverter;
     }
+
     @Override
     public CartDto convert(Cart source) {
+
         CartDto cartDto = new CartDto();
         cartDto.setCampaignDiscount(source.getCampaignDiscount());
         cartDto.setCouponDiscount(source.getCouponDiscount());
@@ -31,6 +33,7 @@ public class CartDtoConverter implements DtoConverter<CartDto, Cart> {
 
     @Override
     public List<CartDto> convert(List<Cart> source) {
+
         return source.stream()
                 .map(this::convert)
                 .collect(Collectors.toList());

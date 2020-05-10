@@ -6,14 +6,6 @@ public class CategoryDto extends BaseDto{
 
     private String title;
 
-    public CategoryDto() {
-    }
-
-    public CategoryDto(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
     public Long getId() {
         return id;
     }

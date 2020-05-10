@@ -5,8 +5,11 @@ package com.trendyol.shoppingcart.model.request;
 import java.math.BigDecimal;
 
 public class CreateProductRequest {
+
     private String title;
+
     private BigDecimal price;
+
     private Long categoryId;
 
     public String getTitle() {

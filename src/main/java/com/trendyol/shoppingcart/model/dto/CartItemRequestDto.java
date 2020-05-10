@@ -1,10 +1,11 @@
-package com.trendyol.shoppingcart.model.dummy;
+package com.trendyol.shoppingcart.model.dto;
 
 import java.util.List;
 
-public class CartItem {
+public class CartItemRequestDto {
 
     private Long id;
+
     private List<ProductCartItem> productCartItems;
 
     public Long getId() {

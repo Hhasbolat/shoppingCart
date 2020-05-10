@@ -22,14 +22,6 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    public Product() {
-    }
-
-    public Product(String title, double v, Category category) {
-        super();
-    }
-
-
     public Long getId() {
         return id;
     }

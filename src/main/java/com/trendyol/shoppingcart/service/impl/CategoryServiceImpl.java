@@ -16,17 +16,20 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryDtoConverter categoryDtoConverter;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryDtoConverter categoryDtoConverter) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository,
+                               CategoryDtoConverter categoryDtoConverter) {
         this.categoryRepository = categoryRepository;
         this.categoryDtoConverter = categoryDtoConverter;
     }
 
     @Override
     public CategoryDto findCategoryById(Long id) {
+
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         if (!optionalCategory.isPresent()){
             throw new EntityNotFoundException();
         }
+
         return categoryDtoConverter.convert(optionalCategory.get());
     }
 }

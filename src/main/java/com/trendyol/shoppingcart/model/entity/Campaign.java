@@ -26,13 +26,6 @@ public class Campaign extends BaseEntity {
     @Column(name = "DISCOUNT_TYPE")
     private DiscountType discountType;
 
-    public Campaign() {
-    }
-
-    public Campaign(Category food, BigDecimal bigDecimal, int i, DiscountType rate) {
-        super();
-    }
-
     public Long getId() {
         return id;
     }
