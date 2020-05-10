@@ -4,20 +4,15 @@ package com.trendyol.shoppingcart.service.impl;
 import com.trendyol.shoppingcart.error.UserException;
 import com.trendyol.shoppingcart.model.dto.*;
 import com.trendyol.shoppingcart.model.entity.Cart;
-import com.trendyol.shoppingcart.model.entity.Coupon;
 import com.trendyol.shoppingcart.model.enums.DiscountType;
 import com.trendyol.shoppingcart.model.request.AddItemsRequest;
-import com.trendyol.shoppingcart.repository.CartItemRepository;
 import com.trendyol.shoppingcart.repository.CartRepository;
-import com.trendyol.shoppingcart.repository.CouponRepository;
 import com.trendyol.shoppingcart.service.CampaignService;
 import com.trendyol.shoppingcart.service.CartService;
 import com.trendyol.shoppingcart.service.DeliveryCostCalculatorService;
 import com.trendyol.shoppingcart.service.ProductService;
 import com.trendyol.shoppingcart.service.converter.CartDtoConverter;
-import com.trendyol.shoppingcart.service.converter.CouponConverter;
 import com.trendyol.shoppingcart.service.mapper.CartEntityMapper;
-import com.trendyol.shoppingcart.service.mapper.ProductEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,35 +25,24 @@ public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ProductService productService;
-    private final ProductEntityMapper productEntityMapper;
     private final CartDtoConverter cartDtoConverter;
     private final CampaignService campaignService;
-    private final CartItemRepository cartItemRepository;
     private final CartEntityMapper cartEntityMapper;
     private final DeliveryCostCalculatorService deliveryCostCalculatorService;
-    private final CouponConverter couponConverter;
-    private final CouponRepository couponRepository;
+
 
     public CartServiceImpl(CartRepository cartRepository,
                            ProductService productService,
-                           ProductEntityMapper productEntityMapper,
                            CartDtoConverter cartDtoConverter,
                            CampaignService campaignService,
-                           CartItemRepository cartItemRepository,
                            CartEntityMapper cartEntityMapper,
-                           DeliveryCostCalculatorService deliveryCostCalculatorService,
-                           CouponConverter couponConverter,
-                           CouponRepository couponRepository) {
+                           DeliveryCostCalculatorService deliveryCostCalculatorService) {
         this.cartRepository = cartRepository;
         this.productService = productService;
-        this.productEntityMapper = productEntityMapper;
         this.cartDtoConverter = cartDtoConverter;
         this.campaignService = campaignService;
-        this.cartItemRepository = cartItemRepository;
         this.cartEntityMapper = cartEntityMapper;
         this.deliveryCostCalculatorService = deliveryCostCalculatorService;
-        this.couponConverter = couponConverter;
-        this.couponRepository = couponRepository;
     }
 
     @Override
@@ -97,7 +81,7 @@ public class CartServiceImpl implements CartService {
 
         Optional<Cart> optionalCart = cartRepository.findById(id);
 
-        if (!optionalCart.isPresent()){
+        if (!optionalCart.isPresent()) {
             throw new UserException("entity not found");
         }
 
