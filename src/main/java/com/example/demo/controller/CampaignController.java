@@ -18,7 +18,7 @@ public class CampaignController {
         this.campaignService = campaignService;
     }
 
-    @PostMapping("/campaign")
+    @PostMapping("/create")
     public ResponseEntity<CampaignDto> createCampaign(@RequestBody CampaignDto request) {
         return ResponseEntity.ok(campaignService.createCampaign(request));
     }

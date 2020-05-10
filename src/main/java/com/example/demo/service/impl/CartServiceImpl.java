@@ -17,6 +17,7 @@ import com.example.demo.service.mapper.ProductEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -72,7 +73,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Double getDeliveryCost(CartDto cartDto) {
+    public CartDto getCart(Long id) {
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if (!optionalCart.isPresent()){
+            throw new EntityNotFoundException();
+        }
+        return cartDtoConverter.convert(optionalCart.get());
+    }
+
+    @Override
+    public Double calculateDeliveryCost(CartDto cartDto) {
         return deliveryCostCalculatorService.calculateFor(cartDto);
     }
 

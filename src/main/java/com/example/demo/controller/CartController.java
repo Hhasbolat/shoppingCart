@@ -23,4 +23,10 @@ public class CartController {
         return ResponseEntity.ok(cartService.addProducts(cartId,addItemsRequest));
     }
 
+    @GetMapping("{cartId}")
+    @ResponseBody
+    public ResponseEntity<CartDto> getCart(@PathVariable("cartId") Long cartId){
+        return ResponseEntity.ok(cartService.getCart(cartId));
+    }
+
 }

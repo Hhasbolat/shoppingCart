@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.dto.CartDto;
-import com.example.demo.model.dto.ProductDto;
-import com.example.demo.model.request.CreateProductRequest;
 import com.example.demo.service.CartService;
-import com.example.demo.service.DeliveryCostCalculatorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +20,8 @@ public class DeliveryCostController {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<Double> createProduct(@RequestBody CartDto request){
-        return ResponseEntity.ok(cartService.getDeliveryCost(request));
+    public ResponseEntity<Double> calculateDeliveryCost(@RequestBody CartDto request){
+        return ResponseEntity.ok(cartService.calculateDeliveryCost(request));
     }
 
 }

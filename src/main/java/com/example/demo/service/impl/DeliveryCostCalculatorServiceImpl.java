@@ -25,13 +25,13 @@ public class DeliveryCostCalculatorServiceImpl implements DeliveryCostCalculator
         if (cart == null) {
             throw new IllegalArgumentException();
         }
-        int numberOfDeliveries = getNumberOfDeliveries(cart);
-        int numberOfProducts = getNumberOfProducts(cart);
+        int numberOfDeliveries = getNumberOfDeliveriesCategory(cart);
+        int numberOfProducts = getNumberOfDeliveriesProducts(cart);
 
         return (costPerDelivery * numberOfDeliveries) + (costPerProduct * numberOfProducts) + fixedCost;
     }
 
-    public Integer getNumberOfDeliveries(CartDto cart) {
+    public Integer getNumberOfDeliveriesCategory(CartDto cart) {
         List<CartItemDto> cartItems = cart.getItems();
         Integer numberOfCategory = cartItems
                 .stream()
@@ -45,7 +45,7 @@ public class DeliveryCostCalculatorServiceImpl implements DeliveryCostCalculator
         return numberOfCategory;
     }
 
-    public Integer getNumberOfProducts(CartDto cart) {
+    public Integer getNumberOfDeliveriesProducts(CartDto cart) {
         List<CartItemDto> cartItems = cart.getItems();
         Integer numberOfProduct = cartItems
                 .stream()
