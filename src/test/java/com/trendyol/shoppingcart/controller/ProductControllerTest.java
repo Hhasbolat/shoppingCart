@@ -8,9 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import static com.trendyol.shoppingcart.builder.ProductMocDataBuilder.generateProduct;
 import static com.trendyol.shoppingcart.builder.ProductMocDataBuilder.generateProductRequest;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
@@ -23,21 +25,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(value = ProductController.class)
 class ProductControllerTest extends BaseControllerTest {
 
-
     private static final Long PRODUCT_ID = 1L;
-    private List<ProductDto> productResponse;
+    private List<ProductDto> productResponseList;
     private CreateProductRequest productRequest;
     private ProductDto product;
-
-
-
 
     @MockBean
     ProductService productService;
 
     @BeforeEach
     void setUp() {
-        productRequest = generateProductRequest();;
+        productRequest = generateProductRequest();
+
+        product = generateProduct();
+
     }
 
     @Test
@@ -57,7 +58,7 @@ class ProductControllerTest extends BaseControllerTest {
 
     @Test
     void getAllProducts() {
-        when(productService.getAllProducts()).thenReturn(productResponse);
+        when(productService.getAllProducts()).thenReturn(productResponseList);
         try {
             mockMvc.perform(get("/product/getAll"))
                     .andDo(print())

@@ -2,8 +2,6 @@ package com.trendyol.shoppingcart.builder;
 
 import uk.co.jemos.podam.api.*;
 
-import java.util.List;
-
 public class GenericMockDataBuilder<T> {
 
     private final Class<T> type;
@@ -20,21 +18,8 @@ public class GenericMockDataBuilder<T> {
         return new GenericMockDataBuilder<>(type);
     }
 
-    GenericMockDataBuilder<T> excludeField(String field) {
-        podamFactory.setClassStrategy(classInfoStrategy.addExcludedField(type, field));
-        return this;
-    }
-
     T build() {
         return podamFactory.manufacturePojo(type);
     }
-
-
-    @SuppressWarnings("unchecked")
-    public List<T> buildList(int elementSizeOfCollection) {
-        podamFactory.getStrategy().setDefaultNumberOfCollectionElements(elementSizeOfCollection);
-        return podamFactory.manufacturePojo(List.class, type);
-    }
-
 
 }
