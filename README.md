@@ -4,7 +4,7 @@
 
 Shopping Cart - Case Study
 
-Developed project in accordance with the SOLID principles.
+controller, error, model, repository, service / separated for easy implementation
 	
 ## Project is created with
 * Java: 8
