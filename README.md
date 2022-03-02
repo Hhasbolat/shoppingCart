@@ -1,8 +1,6 @@
 
 
-## TRENDYOL 
-
-Shopping Cart - Case Study
+Shopping Cart
 
 controller, error, model, repository, service / separated for easy implementation
 	
